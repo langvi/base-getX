@@ -18,6 +18,7 @@ dependencies:
   validators: ^3.0.0
   carousel_slider: ^4.0.0
   pull_to_refresh: ^2.0.0
+  shared_preferences: ^2.0.7
 
 dev_dependencies:
   flutter_test:
