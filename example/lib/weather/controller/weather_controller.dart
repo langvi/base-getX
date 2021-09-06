@@ -7,12 +7,10 @@ class WeatherController extends BaseGetX {
   final _repository = WeatherRepository();
 
   void getWeather(String location) async {
-    isShowLoading = true;
     update();
     weather = await _repository.getInfoWeatherByLocation(location);
     weather.detailWeather = await _repository.getDetailWeatherByLocation(weather.woeid);
       if (weather.detailWeather != null) {
-        isShowLoading = false;
       }
     update();
   }

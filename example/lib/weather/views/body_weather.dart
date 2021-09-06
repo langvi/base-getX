@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class BodyWeather extends StatelessWidget {
   final _weatherController = Get.find<WeatherController>();
+  final _textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -12,6 +13,7 @@ class BodyWeather extends StatelessWidget {
       children: [
         _buildContent(),
         TextFormField(
+          controller: _textController,
           validator: (value) {
             if (value!.isEmpty) {
               return 'Không hợp lệ';
@@ -22,14 +24,16 @@ class BodyWeather extends StatelessWidget {
             hintText: 'Nhập thành phố...',
           ),
         ),
-        ElevatedButton(onPressed: () {}, child: Text('Tìm kiếm'))
+        ElevatedButton(onPressed: () {
+          _weatherController.getWeather(_textController.text);
+        }, child: Text('Tìm kiếm'))
       ],
     );
   }
 
   Widget _buildContent() {
     if (_weatherController.weather.detailWeather == null) {
-      return _weatherController.isShowLoading
+      return _weatherController.isShowLoading.value
           ? Container(width: 40, height: 40, child: CircularProgressIndicator())
           : Container();
     }

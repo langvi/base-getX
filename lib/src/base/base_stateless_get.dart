@@ -8,8 +8,11 @@ import 'package:get/get.dart';
 
 abstract class BaseStatelessGet<C extends BaseGetX> extends StatelessWidget {
   late final C controller;
+
   void initController();
+
   Widget builder(BuildContext context);
+
   @override
   Widget build(BuildContext context) {
     initController();
@@ -26,9 +29,9 @@ abstract class BaseStatelessGet<C extends BaseGetX> extends StatelessWidget {
       child: Center(
         child: Platform.isAndroid
             ? CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          backgroundColor: Colors.black38,
-        )
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                backgroundColor: Colors.black38,
+              )
             : CupertinoActivityIndicator(radius: 10, animating: true),
       ),
     );
@@ -38,28 +41,63 @@ abstract class BaseStatelessGet<C extends BaseGetX> extends StatelessWidget {
     return Stack(
       children: <Widget>[
         child,
-        Visibility(
-            visible: controller.isShowLoading, child: buildViewLoading()),
+        Obx(() {
+          return Visibility(visible: controller.isShowLoading.value, child: buildViewLoading());
+        }),
       ],
     );
   }
 
-  // void _showErrorBloc(String error, int statusCode) {
-  //   showDialog(
-  //     context: Get.context!,
-  //     builder: (context) {
-  //       return Dialog(
-  //         child: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             Text('Thong bao'),
-  //             Container(
-  //               child: Text(error),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
+// void _showErrorBloc(String error, int statusCode) {
+//   showDialog(
+//     context: Get.context!,
+//     builder: (context) {
+//       return Dialog(
+//         child: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           children: [
+//             Text('Thong bao'),
+//             Container(
+//               child: Text(error),
+//             ),
+//           ],
+//         ),
+//       );
+//     },
+//   );
+// }
+}
+
+abstract class BaseViewGet<C extends BaseGetX> extends GetView<C> {
+  Widget builder(BuildContext context);
+
+  @override
+  Widget build(BuildContext context) {
+    return builder(context);
+  }
+
+  Widget buildViewLoading() {
+    return Container(
+      color: Colors.black38,
+      child: Center(
+        child: Platform.isAndroid
+            ? CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                backgroundColor: Colors.black38,
+              )
+            : CupertinoActivityIndicator(radius: 10, animating: true),
+      ),
+    );
+  }
+
+  Widget buildLoading({required Widget child}) {
+    return Stack(
+      children: <Widget>[
+        child,
+        Obx(() {
+          return Visibility(visible: controller.isShowLoading.value, child: buildViewLoading());
+        }),
+      ],
+    );
+  }
 }

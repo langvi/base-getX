@@ -8,8 +8,11 @@ import 'package:get/get.dart';
 
 abstract class BaseStatefulGet<SF extends StatefulWidget, C extends BaseGetX> extends State<SF> {
   late final C controller;
+
   void initController();
+
   Widget builder(BuildContext context);
+
   @override
   void initState() {
     initController();
@@ -43,7 +46,9 @@ abstract class BaseStatefulGet<SF extends StatefulWidget, C extends BaseGetX> ex
     return Stack(
       children: <Widget>[
         child,
-        Visibility(visible: controller.isShowLoading, child: buildViewLoading()),
+        Obx(() {
+          return Visibility(visible: controller.isShowLoading.value, child: buildViewLoading());
+        }),
       ],
     );
   }

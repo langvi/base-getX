@@ -1,5 +1,6 @@
 import 'package:base_getx/base_getx.dart';
 import 'package:example/base/app_controller/app_controller.dart';
+import 'package:example/demo/demo_page.dart';
 import 'package:example/weather/weather_page.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class _MyAppState extends BaseStatefulGet<MyApp, AppController> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: WeatherPage(),
+      home: DemoPage(),
     );
   }
 }
