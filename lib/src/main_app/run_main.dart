@@ -9,6 +9,5 @@ void runMainApp({required Widget myApp}) {
     runApp(myApp);
   }, (error, stackTrace) {
     print(error);
-    HandleExceptionApp.instance.handleExceptionAsync(error, stackTrace);
   });
 }

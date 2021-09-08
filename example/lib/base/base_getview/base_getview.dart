@@ -1,27 +1,25 @@
 import 'dart:io';
 
 import 'package:base_getx/base_getx.dart';
-import 'package:base_getx/src/base/base_get.dart';
+import 'package:example/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
-abstract class BaseStatelessGet<C extends BaseGetXController> extends StatelessWidget {
-  late final C controller;
-
-  void initController();
-
+abstract class BaseGetViewApp<C extends BaseGetXController> extends GetViewBindings<C> {
   Widget builder(BuildContext context);
+
+  void initDependencies();
+
+  @override
+  void dependencies() {
+    initDependencies();
+    setCallBackError(handleDioError);
+  }
 
   @override
   Widget build(BuildContext context) {
-    initController();
-    return GetBuilder<C>(
-      builder: (controller) {
-        return builder(context);
-      },
-    );
+    return builder(context);
   }
 
   Widget buildViewLoading() {
@@ -50,7 +48,21 @@ abstract class BaseStatelessGet<C extends BaseGetXController> extends StatelessW
       ],
     );
   }
+
+  void handleDioError(String message, int statusCode) {
+    controller.setLoading(false);
+    if (statusCode == 401) {
+      ShowDialog().showDialogNotification(
+          title: 'Thông báo',
+          content: message,
+          onClick: () {
+            // navToScreenReplaceAll(toPage: toPage)
+          });
+    } else {
+      ShowDialog().showDialogNotification(
+        title: 'Thông báo',
+        content: message,
+      );
+    }
+  }
 }
-
-
-

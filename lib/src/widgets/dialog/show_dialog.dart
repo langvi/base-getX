@@ -1,11 +1,12 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:base_getx/base_getx.dart';
 import 'package:base_getx/src/widgets/dialog/build_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ShowDialog {
-  factory ShowDialog(BuildContext context) {
-    _instance._context = context;
+  factory ShowDialog() {
+    _instance._context = Get.context!;
     return _instance;
   }
 

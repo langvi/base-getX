@@ -12,3 +12,5 @@ export 'package:get/get.dart';
 export 'src/main_app/run_main.dart';
 export 'src/utils/navigator.dart';
 export 'src/exceptions/handle_exception.dart';
+export 'src/base/get_view.dart';
+export 'src/utils/keyboard_visibility.dart';

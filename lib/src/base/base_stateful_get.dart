@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-abstract class BaseStatefulGet<SF extends StatefulWidget, C extends BaseGetX> extends State<SF> {
+abstract class BaseStatefulGet<SF extends StatefulWidget, C extends BaseGetXController> extends State<SF> {
   late final C controller;
 
   void initController();

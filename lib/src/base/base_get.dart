@@ -1,7 +1,7 @@
 import 'package:base_getx/base_getx.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-abstract class BaseGetX extends GetxController {
+abstract class BaseGetXController extends GetxController {
   RxBool isShowLoading = false.obs;
   void setLoading(bool isShow){
     isShowLoading.subject.add(isShow);
