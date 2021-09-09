@@ -4,9 +4,9 @@ A template app Flutter using GetX
 
 ## Giới thiệu
 ### 1. Base controller
- Kế thừa getxController, bổ sung isShowLoading và func setLoading sử dụng cho việc ẩn hoặc hiện loading
- isShowLoading = true => show loading
- isShowLoading = false => hide loading
+ Kế thừa getxController, bổ sung isShowLoading và func setLoading sử dụng cho việc ẩn hoặc hiện loading.
+ - isShowLoading = true => show loading
+ - isShowLoading = false => hide loading
 ```
 abstract class BaseGetXController extends GetxController {
   RxBool isShowLoading = false.obs;
@@ -230,3 +230,47 @@ void main() async {
 }
 ```
 function *handleExceptionAsync* xử lí các ngoại lệ của DiorError, chi tiết hơn thì xem trong project example
+### 7. Navigation sử dụng getx
+- Chuyển hướng màn hình sử dụng get sẽ không cần truyền context vào
+- Dưới đây là navigator đối với các view có implement  bindings:
+```
+/// Chuyển đến màn mới có sử dụng getview
+void navToScreen(
+    {required GetViewBindings toPage,
+    Transition transition = Transition.leftToRight,
+    void Function()? callBack}) async {
+  await Get.to(() => toPage, transition: transition, binding: toPage);
+  if (callBack != null) {
+    callBack();
+  }
+}
+/// Chuyển đến màn mới sử dụng getview và đóng tất cả các màn trước nó
+void navToScreenReplaceAll(
+    {required GetViewBindings toPage,
+    Transition transition = Transition.leftToRight,
+    void Function()? callBack}) async {
+  Get.offAll(() => toPage, transition: transition, binding: toPage);
+  if (callBack != null) {
+    callBack();
+  }
+}
+```
+- Dưới đây là navigator đối với các view không implement bindings(như stateless, stateful...):
+```
+/// Chuyển đến màn mới không sử dụng getview
+void navToScreenAnother(
+    {required Widget toPage, void Function()? callBack}) async {
+  await Get.to(() => toPage, transition: Transition.leftToRight);
+  if (callBack != null) {
+    callBack();
+  }
+}
+/// Chuyển đến màn mới không sử dụng getview và đóng tất cả các màn trước nó
+void navToScreenAnotherReplaceAll(
+    {required Widget toPage, void Function()? callBack}) async {
+  await Get.offAll(() => toPage, transition: Transition.leftToRight);
+  if (callBack != null) {
+    callBack();
+  }
+}
+```
