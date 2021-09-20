@@ -41,9 +41,7 @@ abstract class BaseGetViewApp<C extends BaseGetXController> extends GetViewBindi
       children: <Widget>[
         child,
         Obx(() {
-          return Visibility(
-              visible: controller.isShowLoading.value,
-              child: buildViewLoading());
+          return Visibility(visible: controller.isShowLoading.value, child: buildViewLoading());
         }),
       ],
     );
