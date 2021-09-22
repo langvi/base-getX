@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:base_getx/base_getx.dart';
 import 'package:example/base/app_controller/app_controller.dart';
 import 'package:example/base/exceptions/handle_exception.dart';
+import 'package:example/demo/demo_controller.dart';
 import 'package:example/weather/weather_page.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +37,8 @@ class _MyAppState extends BaseStatefulGet<MyApp, AppController> {
   void initController() {
     controller = Get.put(AppController());
     controller.initApp();
-    controller.update();
+    Get.lazyPut(() => DemoController2());
+    Get.lazyPut(() => DemoController3());
   }
 
   @override

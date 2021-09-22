@@ -3,13 +3,12 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 abstract class BaseGetXController extends GetxController {
   RxBool isShowLoading = false.obs;
-  void setLoading(bool isShow){
-    isShowLoading.subject.add(isShow);
-    isShowLoading = isShow.obs;
-  }
   @override
-  void onClose() {
-    print('Close $this');
-    super.onClose();
+  void onInit() {
+    print('init $this');
+    super.onInit();
+  }
+  void setLoading(bool isShow) {
+    isShowLoading.value = isShow;
   }
 }

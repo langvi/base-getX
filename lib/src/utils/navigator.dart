@@ -7,7 +7,8 @@ void navToScreen(
     {required GetViewBindings toPage,
     Transition transition = Transition.leftToRight,
     void Function()? callBack}) async {
-  await Get.to(() => toPage, transition: transition, binding: toPage);
+  await Get.to(() => toPage,
+      transition: transition, binding: toPage, preventDuplicates: false);
   if (callBack != null) {
     callBack();
   }
