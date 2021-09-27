@@ -6,17 +6,16 @@ import 'package:flutter/material.dart';
 void navToScreen(
     {required GetViewBindings toPage,
     Transition transition = Transition.leftToRight,
+    Map<String, dynamic>? data,
     void Function()? callBack}) async {
-  await Get.to(() => toPage,
-      transition: transition, binding: toPage, preventDuplicates: false);
+  await Get.to(() => toPage, transition: transition, binding: toPage, preventDuplicates: false, arguments: data);
   if (callBack != null) {
     callBack();
   }
 }
 
 /// Chuyển đến màn mới không sử dụng getview
-void navToScreenAnother(
-    {required Widget toPage, void Function()? callBack}) async {
+void navToScreenAnother({required Widget toPage, void Function()? callBack}) async {
   await Get.to(() => toPage, transition: Transition.leftToRight);
   if (callBack != null) {
     callBack();
@@ -35,8 +34,7 @@ void navToScreenReplaceAll(
 }
 
 /// Chuyển đến màn mới không sử dụng getview và đóng tất cả các màn trước nó
-void navToScreenAnotherReplaceAll(
-    {required Widget toPage, void Function()? callBack}) async {
+void navToScreenAnotherReplaceAll({required Widget toPage, void Function()? callBack}) async {
   await Get.offAll(() => toPage, transition: Transition.leftToRight);
   if (callBack != null) {
     callBack();
