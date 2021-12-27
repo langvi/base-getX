@@ -12,7 +12,7 @@ class WeatherController extends BaseGetXController {
   @override
   void onInit() {
     keyboardVisibilityController.onChange.listen((bool visible) {
-      print('Keyboard visibility update. Is visible: ${visible}');
+      print('Keyboard visibility update. Is visible: $visible');
     });
     super.onInit();
   }

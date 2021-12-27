@@ -1,6 +1,6 @@
-import 'package:base_getx/base_getx.dart';
-import 'package:base_getx/src/base/get_view.dart';
-import 'package:flutter/material.dart';
+// import 'package:base_getx/base_getx.dart';
+// import 'package:base_getx/src/base/get_view.dart';
+// import 'package:flutter/material.dart';
 
 // /// Chuyển đến màn mới có sử dung getview
 // void navToScreen(

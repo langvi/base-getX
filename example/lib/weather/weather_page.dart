@@ -1,13 +1,9 @@
 import 'package:base_getx/base_getx.dart';
 import 'package:example/base/base_getview/base_getnew.dart';
-import 'package:example/base/base_getview/base_getview.dart';
 import 'package:example/weather/controller/weather_controller.dart';
 import 'package:example/weather/views/body_weather.dart';
-import 'package:example/demo/demo_page.dart';
-import 'package:example/weather/views/error_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class WeatherPage extends BaseGetWidget<WeatherController> {
   // @override

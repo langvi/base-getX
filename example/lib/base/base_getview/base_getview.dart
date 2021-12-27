@@ -4,7 +4,6 @@ import 'package:base_getx/base_getx.dart';
 import 'package:example/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 abstract class BaseGetViewApp<C extends BaseGetXController>
     extends GetViewBindings<C> {

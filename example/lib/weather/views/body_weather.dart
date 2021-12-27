@@ -1,7 +1,6 @@
 import 'package:base_getx/base_getx.dart';
 import 'package:example/base/base_getview/base_getnew.dart';
 import 'package:example/weather/controller/weather_controller.dart';
-import 'package:example/weather/models/weather.dart';
 import 'package:flutter/material.dart';
 
 class BodyWeather extends BaseGetWidget<WeatherController> {

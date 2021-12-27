@@ -3,7 +3,6 @@ import 'package:example/base/base_getview/base_getnew.dart';
 import 'package:example/base/base_getview/base_getview.dart';
 import 'package:example/demo/demo_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class Demo1 extends BaseGetWidget<DemoController1> {
 

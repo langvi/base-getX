@@ -1,5 +1,3 @@
-import 'package:base_getx/base_getx.dart';
-import 'package:base_getx/src/widgets/dialog/show_dialog.dart';
 import 'package:dio/dio.dart';
 
 abstract class BaseHandleException {

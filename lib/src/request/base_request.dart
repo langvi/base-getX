@@ -3,7 +3,6 @@ import 'package:base_getx/src/const/config.dart';
 import 'package:base_getx/src/const/storage.dart';
 import 'package:base_getx/src/request/abstract_request.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 class BaseRequestImpl extends BaseRequest {
   static Dio dio = Dio();

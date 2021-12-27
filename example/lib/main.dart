@@ -1,12 +1,7 @@
 import 'dart:async';
 
 import 'package:base_getx/base_getx.dart';
-import 'package:example/base/app_controller/app_controller.dart';
-import 'package:example/base/base_getview/base_getnew.dart';
 import 'package:example/base/const/const.dart';
-import 'package:example/base/exceptions/handle_exception.dart';
-import 'package:example/demo/demo_controller.dart';
-import 'package:example/demo/demo_page.dart';
 import 'package:example/weather/weather_page.dart';
 import 'package:flutter/material.dart';
 
