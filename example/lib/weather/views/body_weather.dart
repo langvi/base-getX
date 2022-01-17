@@ -12,6 +12,7 @@ class BodyWeather extends BaseGetWidget<WeatherController> {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
