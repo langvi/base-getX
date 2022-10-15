@@ -49,6 +49,7 @@ class WeatherPage extends BaseGetWidget<WeatherController> {
             // controller.getWeather('London');
             // controller.testException();
             controller.count.value++;
+            ShowDialog().showSuccessDialog(title: "title", content: "content");
           },
 
         ),

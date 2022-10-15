@@ -28,8 +28,8 @@ class ShowDialog {
     // }
     await CustomAwesomeDialog(
         context: _context,
-        dialogType: DialogType.ERROR,
-        animType: AnimType.BOTTOMSLIDE,
+        dialogType: DialogType.error,
+        animType: AnimType.bottomSlide,
         title: title,
         dismissOnBackKeyPress: false,
         desc: content,
@@ -43,7 +43,7 @@ class ShowDialog {
       {required String title, required String content, Function? onClick}) {
     CustomAwesomeDialog(
         context: _context,
-        animType: AnimType.BOTTOMSLIDE,
+        animType: AnimType.bottomSlide,
         title: title,
         dismissOnBackKeyPress: false,
         desc: content,
@@ -55,14 +55,16 @@ class ShowDialog {
   }
 
   Future<void> showDialogNotification(
-      {required String title, required String content, Function? onClick}) async{
+      {required String title,
+      required String content,
+      Function? onClick}) async {
     // if (_numberDialog > 0) {
     //   Navigator.of(_context).pop();
     // }
-   await CustomAwesomeDialog(
+    await CustomAwesomeDialog(
         context: _context,
-        dialogType: DialogType.INFO,
-        animType: AnimType.BOTTOMSLIDE,
+        dialogType: DialogType.info,
+        animType: AnimType.bottomSlide,
         title: title,
         desc: content,
         btnCancel: _buildButton('OK', Theme.of(_context).primaryColor,
@@ -79,8 +81,8 @@ class ShowDialog {
       String titleAccept = 'Đồng ý'}) {
     CustomAwesomeDialog(
         context: _context,
-        dialogType: DialogType.INFO,
-        animType: AnimType.BOTTOMSLIDE,
+        dialogType: DialogType.info,
+        animType: AnimType.bottomSlide,
         title: title,
         dismissOnBackKeyPress: false,
         desc: content,
@@ -153,9 +155,11 @@ class ShowDialog {
   }
 
   Widget _buildButton(String title, Color color, {Function? onClick}) {
-    return RaisedButton(
-      color: color,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
       onPressed: () {
         Navigator.pop(_context);
         if (onClick != null) {

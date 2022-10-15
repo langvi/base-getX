@@ -91,6 +91,9 @@ class CustomAwesomeDialog {
 
   /// Set BorderSide of DialogShape
   final BorderSide? borderSide;
+  bool _onDismissCallbackCalled = false;
+  final Color? barrierColor;
+  final bool autoDismiss;
 
   CustomAwesomeDialog({
     required this.context,
@@ -117,7 +120,9 @@ class CustomAwesomeDialog {
     this.animType = AnimType.SCALE,
     this.padding,
     this.useRootNavigator = false,
+    this.autoDismiss = true,
     this.autoHide,
+    this.barrierColor = Colors.black54,
     this.keyboardAware = true,
     this.dismissOnBackKeyPress = true,
     this.width,
@@ -127,46 +132,116 @@ class CustomAwesomeDialog {
     this.dialogBackgroundColor,
     this.borderSide,
     this.buttonsTextStyle,
-  }) : assert(
+  })  : assert(
           context != null,
+        ),
+        assert(
+          autoDismiss || onDissmissCallback != null,
+          'If autoDismiss is false, you must provide an onDismissCallback to pop the dialog',
         );
 
   bool isDissmisedBySystem = false;
-  DismissType _dismissType = DismissType.OTHER;
+  DismissType _dismissType = DismissType.other;
 
-  Future show() => showDialog(
-          context: this.context,
-          barrierDismissible: dismissOnTouchOutside,
-          builder: (BuildContext context) {
-            if (autoHide != null) {
-              Future.delayed(autoHide!).then((value) => dissmiss());
-            }
-            switch (animType) {
-              case AnimType.SCALE:
-                return ScaleFade(scale: 0.1, fade: true, curve: Curves.fastLinearToSlowEaseIn, child: _buildDialog);
-              case AnimType.LEFTSLIDE:
-                return FadeIn(from: SlideFrom.LEFT, child: _buildDialog);
-              case AnimType.RIGHSLIDE:
-                return FadeIn(from: SlideFrom.RIGHT, child: _buildDialog);
-              case AnimType.BOTTOMSLIDE:
-                return FadeIn(from: SlideFrom.BOTTOM, child: _buildDialog);
-              case AnimType.TOPSLIDE:
-                return FadeIn(from: SlideFrom.TOP, child: _buildDialog);
-              default:
-                return _buildDialog;
-            }
-          }).then((_) {
-        isDissmisedBySystem = true;
-        if (onDissmissCallback != null) onDissmissCallback?.call(_dismissType);
-      });
+  Future<dynamic> show() => showGeneralDialog(
+        context: context,
+        useRootNavigator: useRootNavigator,
+        barrierDismissible: dismissOnTouchOutside,
+        pageBuilder: (
+          BuildContext buildContext,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+        ) {
+          if (autoHide != null) {
+            Future<dynamic>.delayed(autoHide!).then((dynamic _) {
+              _dismissType = DismissType.autoHide;
+              dismiss();
+            });
+          }
+          return _buildDialog;
+        },
+        transitionDuration: Duration(milliseconds: 300),
+        transitionBuilder: (
+          BuildContext context,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+          Widget child,
+        ) =>
+            _showAnimation(animation, secondaryAnimation, child),
+        barrierColor: barrierColor ?? const Color(0x80000000),
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      )..then<dynamic>(
+          (dynamic value) => _onDismissCallbackCalled
+              ? null
+              : onDissmissCallback?.call(_dismissType),
+        );
+
+  void dismiss() {
+    if (_onDismissCallbackCalled) return;
+    if (autoDismiss) {
+      Navigator.of(context, rootNavigator: useRootNavigator).pop();
+    }
+    onDissmissCallback?.call(_dismissType);
+    _onDismissCallbackCalled = true;
+  }
 
   Widget? get _buildHeader {
-    if (customHeader != null) return customHeader;
-    if (dialogType == DialogType.NO_HEADER) return null;
-    return FlareHeader(
+    if (customHeader != null) {
+      return customHeader;
+    }
+    if (dialogType == DialogType.NO_HEADER ||
+        dialogType == DialogType.noHeader) {
+      return null;
+    }
+    return AwesomeDialogHeader(
       loop: headerAnimationLoop,
-      dialogType: this.dialogType,
+      dialogType: dialogType,
     );
+  }
+
+  Widget _showAnimation(
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    switch (animType) {
+      case AnimType.RIGHSLIDE:
+      case AnimType.rightSlide:
+        return AnimationTransition.fromRight(
+          animation,
+          secondaryAnimation,
+          child,
+        );
+      case AnimType.LEFTSLIDE:
+      case AnimType.leftSlide:
+        return AnimationTransition.fromLeft(
+          animation,
+          secondaryAnimation,
+          child,
+        );
+      case AnimType.TOPSLIDE:
+      case AnimType.topSlide:
+        return AnimationTransition.fromTop(
+          animation,
+          secondaryAnimation,
+          child,
+        );
+      case AnimType.BOTTOMSLIDE:
+      case AnimType.bottomSlide:
+        return AnimationTransition.fromBottom(
+          animation,
+          secondaryAnimation,
+          child,
+        );
+      case AnimType.SCALE:
+      case AnimType.scale:
+        return AnimationTransition.scale(
+          animation,
+          secondaryAnimation,
+          child,
+        );
+    }
   }
 
   Widget get _buildDialog => WillPopScope(
@@ -184,7 +259,8 @@ class CustomAwesomeDialog {
           width: width,
           padding: padding ?? EdgeInsets.only(left: 5, right: 5),
           btnOk: btnOk ?? (btnOkOnPress != null ? _buildFancyButtonOk : null),
-          btnCancel: btnCancel ?? (btnCancelOnPress != null ? _buildFancyButtonCancel : null),
+          btnCancel: btnCancel ??
+              (btnCancelOnPress != null ? _buildFancyButtonCancel : null),
           showCloseIcon: this.showCloseIcon,
           onClose: dissmiss,
           closeIcon: closeIcon,
@@ -218,7 +294,8 @@ class CustomAwesomeDialog {
       );
 
   dissmiss() {
-    if (!isDissmisedBySystem) Navigator.of(context, rootNavigator: useRootNavigator).pop();
+    if (!isDissmisedBySystem)
+      Navigator.of(context, rootNavigator: useRootNavigator).pop();
   }
 
   Future<bool> _onWillPop() async => dismissOnBackKeyPress;
@@ -266,14 +343,17 @@ class VerticalStackDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: aligment,
-      padding: EdgeInsets.only(bottom: keyboardAware ? MediaQuery.of(context).viewInsets.bottom : 0),
+      padding: EdgeInsets.only(
+          bottom: keyboardAware ? MediaQuery.of(context).viewInsets.bottom : 0),
       child: Stack(
         children: <Widget>[
           Container(
             width: width ?? MediaQuery.of(context).size.width,
             padding: isDense
-                ? const EdgeInsets.only(top: 30.0, left: 15.0, right: 15.0, bottom: 10.0)
-                : const EdgeInsets.only(top: 30.0, left: 40.0, right: 40.0, bottom: 10.0),
+                ? const EdgeInsets.only(
+                    top: 30.0, left: 15.0, right: 15.0, bottom: 10.0)
+                : const EdgeInsets.only(
+                    top: 30.0, left: 40.0, right: 40.0, bottom: 10.0),
             child: Material(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -327,7 +407,8 @@ class VerticalStackDialog extends StatelessWidget {
                       // ),
                       if (btnOk != null || btnCancel != null)
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -364,7 +445,8 @@ class VerticalStackDialog extends StatelessWidget {
                       side: borderSide ?? BorderSide.none,
                     ),
                     child: CircleAvatar(
-                      backgroundColor: dialogBackgroundColor ?? Theme.of(context).cardColor,
+                      backgroundColor:
+                          dialogBackgroundColor ?? Theme.of(context).cardColor,
                       radius: 55.0,
                       child: header,
                     ),
