@@ -19,9 +19,9 @@ class BaseRequestImpl extends BaseRequest {
 
   @override
   Future<Map<String, dynamic>> getBaseHeader() async {
-    final String token = await StorageApp.getTokenAuthen();
+    // final String token = await StorageApp.getTokenAuthen();
     Map<String, String> map = {
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Bearer ',
     };
     return map;
   }

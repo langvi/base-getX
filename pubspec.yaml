@@ -12,7 +12,6 @@ dependencies:
     sdk: flutter
   get: ^4.3.8
   dio: ^4.0.0
-  flutter_secure_storage: ^4.2.0
   awesome_dialog: ^2.1.0
   intl: ^0.17.0
   validators: ^3.0.0
