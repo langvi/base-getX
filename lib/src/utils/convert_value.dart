@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 
 const PATTERN_1 = 'dd/MM/yy HH:mm';
 const PATTERN_2 = 'dd/MM/yyyy';

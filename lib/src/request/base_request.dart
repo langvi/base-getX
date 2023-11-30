@@ -10,7 +10,7 @@ class BaseRequestImpl extends BaseRequest {
   int _numberOfDialog = 0;
 
   factory BaseRequestImpl({required String baseUrl}) {
-    dio.options.connectTimeout = CONNECT_TIMEOUT;
+    dio.options.connectTimeout = const Duration(milliseconds: CONNECT_TIMEOUT);
     dio.options.baseUrl = baseUrl;
     return _singleton;
   }
@@ -91,19 +91,19 @@ class BaseRequestImpl extends BaseRequest {
   }
 
   @override
-  void handleDioError(DioError dioError) {
+  void handleDioError(DioException dioError) {
     int statusCode = 0;
     String content = '';
     if (dioError.response != null) {
       statusCode = dioError.response!.statusCode ?? 0;
       switch (dioError.type) {
-        case DioErrorType.connectTimeout:
-        case DioErrorType.sendTimeout:
-        case DioErrorType.receiveTimeout:
+        case DioExceptionType.connectionTimeout:
+        case DioExceptionType.sendTimeout:
+        case DioExceptionType.receiveTimeout:
           content =
               'Không có phản hồi từ hệ thống, Quý khách vui lòng thử lại sau';
           break;
-        case DioErrorType.response:
+        case DioExceptionType.badResponse:
           switch (statusCode) {
             case 400:
               content = 'Dữ liệu gửi đi không hợp lệ!';

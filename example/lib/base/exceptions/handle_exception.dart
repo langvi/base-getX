@@ -11,16 +11,16 @@ class HandleException extends BaseHandleException {
   void handleExceptionAsync(Object error, StackTrace stackTrace) {
     int statusCode = 0;
     String errorContent = 'Lỗi xử lý hệ thống\nXin vui lòng thử lại sau!!!';
-    if (error is DioError) {
+    if (error is DioException) {
       if (error.response != null) {
         statusCode = error.response!.statusCode ?? 0;
         switch (error.type) {
-          case DioErrorType.connectTimeout:
-          case DioErrorType.sendTimeout:
-          case DioErrorType.receiveTimeout:
+          case DioExceptionType.connectionTimeout:
+          case DioExceptionType.sendTimeout:
+          case DioExceptionType.receiveTimeout:
             errorContent = 'Không có phản hồi từ hệ thống, Quý khách vui lòng thử lại sau';
             break;
-          case DioErrorType.response:
+          case DioExceptionType.badResponse:
             switch (statusCode) {
               case 400:
                 errorContent = 'Dữ liệu gửi đi không hợp lệ!';
