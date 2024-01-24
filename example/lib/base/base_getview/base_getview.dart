@@ -5,7 +5,7 @@ import 'package:example/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-abstract class BaseGetViewApp<C extends BaseGetXController>
+abstract class BaseGetViewApp<C extends BaseGetXOldController>
     extends GetViewBindings<C> {
   Widget builder(BuildContext context);
 
@@ -67,7 +67,7 @@ abstract class BaseGetViewApp<C extends BaseGetXController>
   }
 }
 
-abstract class BaseGetViewApp2<C extends BaseGetXController>
+abstract class BaseGetViewApp2<C extends BaseGetXOldController>
     extends GetView<C> {
   Widget builder(BuildContext context);
 

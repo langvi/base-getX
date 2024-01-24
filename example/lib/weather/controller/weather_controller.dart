@@ -3,7 +3,7 @@ import 'package:example/weather/models/weather.dart';
 import 'package:example/weather/repository/weather_repository.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
-class WeatherController extends BaseGetXController {
+class WeatherController extends BaseGetXOldController {
   Rx<Weather> weather = Weather.init().obs;
   final _repository = WeatherRepository();
   Rx<int> count = 1.obs;

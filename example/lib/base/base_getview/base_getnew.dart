@@ -4,7 +4,7 @@ import 'package:base_getx/base_getx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-abstract class BaseGetWidget<T extends BaseGetXController> extends GetView<T>{
+abstract class BaseGetWidget<T extends BaseGetXOldController> extends GetView<T>{
   Widget buildViewLoading() {
     return Container(
       color: Colors.black38,

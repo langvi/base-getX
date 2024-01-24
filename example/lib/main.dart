@@ -18,7 +18,7 @@ void main() async {
 /// hàm này được gọi bên trong hàm  handleExceptionAsync, thường dùng để show thông báo lỗi cho người dùng
 late void Function(String errorMessage, int statusCode) onErrorCallBackApp;
 
-/// hàm này được gọi trong basegetxController để gán giá trị cho hàm onErrorCallBackApp
+/// hàm này được gọi trong BaseGetXOldController để gán giá trị cho hàm onErrorCallBackApp
 void setCallBackError(Function(String errorMessage, int statusCode) callBack) {
   onErrorCallBackApp = callBack;
 }

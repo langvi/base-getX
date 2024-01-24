@@ -8,7 +8,7 @@ A template app Flutter using GetX
  - isShowLoading = true => show loading
  - isShowLoading = false => hide loading
 ```
-abstract class BaseGetXController extends GetxController {
+abstract class BaseGetXOldController extends GetxController {
   RxBool isShowLoading = false.obs;
   void setLoading(bool isShow){
     isShowLoading.value = isShow;
@@ -34,11 +34,11 @@ abstract class BaseGetXController extends GetxController {
 ```
 ### 2. Base getview
 ```
-abstract class BaseGetWidget<T extends BaseGetXController> extends GetView<T>{
+abstract class BaseGetWidget<T extends BaseGetXOldController> extends GetView<T>{
 ...
 }
 ```
-Khi kế thừa base này sẽ cần 1 controller có type là BaseGetXController, đồng thời override lại
+Khi kế thừa base này sẽ cần 1 controller có type là BaseGetXOldController, đồng thời override lại
 func *build* của **GetView**
 - Example
 ```
@@ -62,10 +62,10 @@ thường được sử dụng để render các local widget
 - Tham khảo thêm tại (https://pub.dev/packages/get#obxvalue)
 - Cách triển khai trong dự án:
 #### 3.1 Tạo một controller
-- controller này sẽ kế thừa **BaseGetXController** 
+- controller này sẽ kế thừa **BaseGetXOldController** 
 - Example:
 ```
-class WeatherController extends BaseGetXController {
+class WeatherController extends BaseGetXOldController {
 ...
 }
 ```
