@@ -94,7 +94,7 @@ class CustomAwesomeDialog {
 
   CustomAwesomeDialog({
     required this.context,
-    this.dialogType = DialogType.INFO,
+    this.dialogType = DialogType.info,
     this.customHeader,
     this.title,
     this.desc,
@@ -114,7 +114,7 @@ class CustomAwesomeDialog {
     this.dismissOnTouchOutside = true,
     this.headerAnimationLoop = true,
     this.aligment = Alignment.center,
-    this.animType = AnimType.SCALE,
+    this.animType = AnimType.scale,
     this.padding,
     this.useRootNavigator = false,
     this.autoHide,
@@ -132,7 +132,7 @@ class CustomAwesomeDialog {
         );
 
   bool isDissmisedBySystem = false;
-  DismissType _dismissType = DismissType.OTHER;
+  DismissType _dismissType = DismissType.other;
 
   Future show() => showDialog(
           context: this.context,
@@ -141,32 +141,20 @@ class CustomAwesomeDialog {
             if (autoHide != null) {
               Future.delayed(autoHide!).then((value) => dissmiss());
             }
-            switch (animType) {
-              case AnimType.SCALE:
-                return ScaleFade(scale: 0.1, fade: true, curve: Curves.fastLinearToSlowEaseIn, child: _buildDialog);
-              case AnimType.LEFTSLIDE:
-                return FadeIn(from: SlideFrom.LEFT, child: _buildDialog);
-              case AnimType.RIGHSLIDE:
-                return FadeIn(from: SlideFrom.RIGHT, child: _buildDialog);
-              case AnimType.BOTTOMSLIDE:
-                return FadeIn(from: SlideFrom.BOTTOM, child: _buildDialog);
-              case AnimType.TOPSLIDE:
-                return FadeIn(from: SlideFrom.TOP, child: _buildDialog);
-              default:
-                return _buildDialog;
-            }
+            return _buildDialog;
           }).then((_) {
         isDissmisedBySystem = true;
         if (onDissmissCallback != null) onDissmissCallback?.call(_dismissType);
       });
 
   Widget? get _buildHeader {
-    if (customHeader != null) return customHeader;
-    if (dialogType == DialogType.NO_HEADER) return null;
-    return FlareHeader(
-      loop: headerAnimationLoop,
-      dialogType: this.dialogType,
-    );
+    // if (customHeader != null) return customHeader;
+    // if (dialogType == DialogType.noHeader) return null;
+    // return FlareHeader(
+    //   loop: headerAnimationLoop,
+    //   dialogType: this.dialogType,
+    // );
+    return customHeader;
   }
 
   Widget get _buildDialog => WillPopScope(

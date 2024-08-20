@@ -28,8 +28,8 @@ class ShowDialog {
     // }
     await CustomAwesomeDialog(
         context: _context,
-        dialogType: DialogType.ERROR,
-        animType: AnimType.BOTTOMSLIDE,
+        dialogType: DialogType.error,
+        animType: AnimType.bottomSlide,
         title: title,
         dismissOnBackKeyPress: false,
         desc: content,
@@ -43,7 +43,7 @@ class ShowDialog {
       {required String title, required String content, Function? onClick}) {
     CustomAwesomeDialog(
         context: _context,
-        animType: AnimType.BOTTOMSLIDE,
+        animType: AnimType.bottomSlide,
         title: title,
         dismissOnBackKeyPress: false,
         desc: content,
@@ -63,8 +63,8 @@ class ShowDialog {
     // }
     await CustomAwesomeDialog(
         context: _context,
-        dialogType: DialogType.INFO,
-        animType: AnimType.BOTTOMSLIDE,
+        dialogType: DialogType.info,
+        animType: AnimType.bottomSlide,
         title: title,
         desc: content,
         btnCancel: _buildButton('OK', Theme.of(_context).primaryColor,
@@ -81,8 +81,8 @@ class ShowDialog {
       String titleAccept = 'Đồng ý'}) {
     CustomAwesomeDialog(
         context: _context,
-        dialogType: DialogType.INFO,
-        animType: AnimType.BOTTOMSLIDE,
+        dialogType: DialogType.info,
+        animType: AnimType.bottomSlide,
         title: title,
         dismissOnBackKeyPress: false,
         desc: content,
